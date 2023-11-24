@@ -7,7 +7,7 @@ import UnauthenticatedApp from "../UnauthenticatedApp/UnauthenticatedApp";
 import AuthenticatedApp from "../AuthenticatedApp/AuthenticatedApp";
 
 const Root = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>

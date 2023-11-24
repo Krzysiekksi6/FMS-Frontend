@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 50px;
+  padding: 25px;
   grid-row: 1/3;
   grid-column: 3/3;
   border-left: 1px solid ${({ theme }) => theme.colors.darkPurple};
@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
 `;
 
 export const NewSectionHeader = styled.h2`
-  margin-right: auto;
   color: ${({ theme }) => theme.colors.darkGrey};
 `;
 

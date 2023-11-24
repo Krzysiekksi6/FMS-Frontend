@@ -6,6 +6,7 @@ export const FormWrapper = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #efe1;
 `;
 
 export const ButtonWrapper = styled.div`
