@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import { GlobalStyle } from "src/assets/styles/GlobalStyle";
 import { theme } from "src/assets/styles/theme";
+import { AuthProvider } from "src/context/AuthProvider";
 import UnauthenticatedApp from "../UnauthenticatedApp/UnauthenticatedApp";
 import AuthenticatedApp from "../AuthenticatedApp/AuthenticatedApp";
-
 const Root = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -14,7 +14,12 @@ const Root = () => {
     <Router>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        {isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+        <AuthProvider>
+          <Routes>
+            <Route path="/*" element={<UnauthenticatedApp />} />
+            <Route path="/auth" element={<AuthenticatedApp />} />
+          </Routes>
+        </AuthProvider>
       </ThemeProvider>
     </Router>
   );
