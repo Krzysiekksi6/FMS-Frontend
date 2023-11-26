@@ -12,9 +12,6 @@ const UnauthenticatedApp = () => {
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
 
-      <Route element={<RequireAuth />}>
-        <Route path="/auth" element={<AuthenticatedApp />} />
-      </Route>
       <Route path="*" element={""} />
     </Routes>
   );

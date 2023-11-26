@@ -73,7 +73,9 @@ const Login = () => {
       />
       {errors.password && <span>Password is required</span>}
       <ButtonWrapper>
-        <Button type="button">Załóż konto</Button>
+        <Button type="button">
+          <Link to={"/register"}>Załóż konto</Link>
+        </Button>
         <Button type="submit">Zaloguj się</Button>
       </ButtonWrapper>
     </FormWrapper>
