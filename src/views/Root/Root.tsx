@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
 import { GlobalStyle } from "src/assets/styles/GlobalStyle";
@@ -10,10 +11,12 @@ const Root = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      {isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        {isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+      </ThemeProvider>
+    </Router>
   );
 };
 
