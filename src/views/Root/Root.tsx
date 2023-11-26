@@ -6,7 +6,6 @@ import { GlobalStyle } from "src/assets/styles/GlobalStyle";
 import { theme } from "src/assets/styles/theme";
 import { AuthProvider } from "src/context/AuthProvider";
 import UnauthenticatedApp from "../UnauthenticatedApp/UnauthenticatedApp";
-import AuthenticatedApp from "../AuthenticatedApp/AuthenticatedApp";
 const Root = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -17,7 +16,6 @@ const Root = () => {
         <AuthProvider>
           <Routes>
             <Route path="/*" element={<UnauthenticatedApp />} />
-            <Route path="/auth" element={<AuthenticatedApp />} />
           </Routes>
         </AuthProvider>
       </ThemeProvider>

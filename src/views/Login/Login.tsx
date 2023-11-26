@@ -1,6 +1,7 @@
 import axios from "src/api/axios";
-import useAuth from "src/hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import useAuth from "src/hooks/useAuth";
 import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
 import FormField from "src/components/molecules/FormField/FormField";
@@ -10,6 +11,9 @@ const Login = () => {
   const LOGIN_URL = "/auth";
 
   const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -36,6 +40,7 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       setAuth({ username, password, roles, accessToken });
+      navigate("/auth");
     } catch (error) {
       if (!error?.response) {
         const errMessage = "No server response";
