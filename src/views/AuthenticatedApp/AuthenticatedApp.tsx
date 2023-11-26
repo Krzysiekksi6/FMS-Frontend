@@ -4,6 +4,10 @@ import MainTemplate from "src/templates/MainTemplate/MainTemplate";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "src/components/RequireAuth";
 
+const ROLES = {
+  USER: "User",
+};
+
 const App = () => {
   return (
     <MainTemplate>
@@ -17,7 +21,7 @@ const App = () => {
 const AuthenticatedApp = () => {
   return (
     <Routes>
-      <Route element={<RequireAuth allowedRoles={["User"]} />}>
+      <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />}>
         <Route path="" element={<App />} />
       </Route>
       <Route path="*" element={""} />

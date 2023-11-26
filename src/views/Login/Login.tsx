@@ -7,9 +7,8 @@ import { Title } from "src/components/atoms/Title/Title.styles";
 import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
+const LOGIN_URL = "/auth";
 const Login = () => {
-  const LOGIN_URL = "/auth";
-
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,9 +19,9 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async () => {
-    const username = "Krzysiekksi6";
-    const password = "haslo123";
+  const onSubmit = async (data) => {
+    const { username, password } = data;
+
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -61,17 +60,17 @@ const Login = () => {
         label="Login"
         name="login"
         id="login"
-        {...register("login", {})}
+        {...register("username", { required: true })}
       />
-      {errors.login && <span>Login is required</span>}
+      {errors.username && <span>Login jest wymagany</span>}
       <FormField
         label="Hasło"
         name="password"
         id="password"
         type="password"
-        {...register("login", {})}
+        {...register("password", { required: true })}
       />
-      {errors.password && <span>Password is required</span>}
+      {errors.password && <span>Hasło jest wymagane</span>}
       <ButtonWrapper>
         <Button type="button">
           <Link to={"/register"}>Załóż konto</Link>

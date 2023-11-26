@@ -1,4 +1,4 @@
-import React from "react";
+import axios from "src/api/axios";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
@@ -6,13 +6,37 @@ import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
 
+const REGISTER_URL = "/register";
+
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  firstname: string;
+  lastname: string;
+  username: string;
+  password: string;
 };
 
 const Register = () => {
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { firstname, lastname, username, password } = data;
+    try {
+      const response = await axios.post(
+        REGISTER_URL,
+        JSON.stringify({
+          firstname,
+          lastname,
+          username,
+          password,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -22,33 +46,36 @@ const Register = () => {
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Title>Rejestracja</Title>
       <FormField
-        label="firstname"
+        label="Imię"
         name="firstname"
         id="firstname"
-        {...register("firstname", {})}
+        {...register("firstname", { required: true })}
       />
+      {errors.firstname && <span>Imię jest wymagane</span>}
       <FormField
-        label="lastname"
+        label="Nazwisko"
         name="lastname"
         id="lastname"
-        {...register("lastname", {})}
-      />{" "}
+        {...register("lastname", { required: true })}
+      />
+      {errors.lastname && <span>Nazwisko jest wymagane</span>}
       <FormField
-        label="username"
+        label="Login"
         name="username"
         id="username"
-        {...register("username", {})}
+        {...register("username", { required: true })}
       />
+      {errors.username && <span>Login jest wymagany</span>}
       <FormField
-        label="password"
+        label="Hasło"
         name="password"
         id="password"
         type="password"
-        {...register("password", {})}
+        {...register("password", { required: true })}
       />
-        <Button type="submit">Zarejestruj się</Button>
-      <ButtonWrapper>
-      </ButtonWrapper>
+      {errors.password && <span>Hasło jest wymagane</span>}
+      <Button type="submit">Zarejestruj się</Button>
+      <ButtonWrapper></ButtonWrapper>
     </FormWrapper>
   );
 };
