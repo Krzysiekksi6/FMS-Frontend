@@ -5,6 +5,7 @@ import { Title } from "src/components/atoms/Title/Title.styles";
 import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
+import { useNavigate } from "react-router-dom";
 
 const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
 
@@ -16,6 +17,7 @@ type Inputs = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { firstname, lastname, username, password } = data;
     try {
@@ -33,6 +35,7 @@ const Register = () => {
         }
       );
       console.log(response);
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }

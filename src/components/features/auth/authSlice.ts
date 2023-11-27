@@ -1,16 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface AuthState {
+  userId: string | null;
+  firstname: string | null;
+  user: string | null;
+  token: string | null;
+  roles: string[] | null;
+  userDetails: string[] | null;
+}
+
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null, token: null, roles: null },
+  initialState: {
+    userId: null,
+    firstname: null,
+    user: null,
+    token: null,
+    roles: null,
+    userDetails: null,
+  } as AuthState,
   reducers: {
     setCredentials: (state, action) => {
-      const { username, accessToken, roles } = action.payload;
+      const { id, firstname, username, accessToken, roles, userDetails } =
+        action.payload;
+      state.userId = id;
+      state.firstname = firstname;
       state.user = username;
       state.token = accessToken;
       state.roles = roles;
+      state.userDetails = userDetails;
     },
-    logout: (state, action) => {
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+    },
+    logout: (state) => {
       state.user = null;
       state.token = null;
       state.roles = null;
@@ -18,8 +42,14 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, setUserDetails, logout } = authSlice.actions;
 export default authSlice.reducer;
-export const selectCurrentUser = (state) => state.auth.user;
-export const selectCurrentToken = (state) => state.auth.token;
-export const selectUserRoles = (state) => state.auth.roles;
+
+export const selectCurrentUserName = (state: { auth: AuthState }) =>
+  state.auth.user;
+export const selectCurrentToken = (state: { auth: AuthState }) =>
+  state.auth.token;
+export const selectUserRoles = (state: { auth: AuthState }) => state.auth.roles;
+export const selectUserDetails = (state: { auth: AuthState }) =>
+  state.auth.userDetails;
+export const selectUserId = (state: { auth: AuthState }) => state.auth.userId;

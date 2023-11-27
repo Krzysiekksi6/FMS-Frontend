@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "src/components/features/auth/RequireAuth";
 import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
 import {
-  selectCurrentUser,
+  selectCurrentUserName,
   selectCurrentToken,
 } from "src/components/features/auth/authSlice";
 
@@ -24,7 +24,7 @@ const App = () => {
 };
 
 const AuthenticatedApp = () => {
-  const user = useSelector(selectCurrentUser);
+  const user = useSelector(selectCurrentUserName);
   const token = useSelector(selectCurrentToken);
   return (
     <Routes>
