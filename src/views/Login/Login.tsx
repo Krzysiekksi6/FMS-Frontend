@@ -1,18 +1,20 @@
-import axios from "src/api/axios";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "src/hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { setCredentials } from "src/components/features/auth/authSlice";
+import { useLoginMutation } from "src/components/features/auth/authApiSlice";
+
+import FormField from "src/components/molecules/FormField/FormField";
 import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
-import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
-const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
 const Login = () => {
-  const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
+
   const {
     register,
     handleSubmit,
@@ -21,24 +23,9 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const { username, password } = data;
-
     try {
-      const response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({
-          username,
-          password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-
-      const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ username, password, roles, accessToken });
+      const userData = await login({ username, password }).unwrap();
+      dispatch(setCredentials({ ...userData, username }));
       navigate("/auth");
     } catch (error) {
       if (!error?.response) {
@@ -53,6 +40,7 @@ const Login = () => {
       }
     }
   };
+
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Title>Logowanie</Title>
