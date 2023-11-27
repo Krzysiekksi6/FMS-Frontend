@@ -6,7 +6,7 @@ import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
 
-const REGISTER_URL = "/register";
+const REGISTER_URL = import.meta.env.VITE_REGISTER_URL;
 
 type Inputs = {
   firstname: string;
@@ -67,7 +67,7 @@ const Register = () => {
       />
       {errors.username && <span>Login jest wymagany</span>}
       <FormField
-        label="Hasło"
+        label="password"
         name="password"
         id="password"
         type="password"

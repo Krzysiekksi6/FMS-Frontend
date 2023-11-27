@@ -7,7 +7,7 @@ import { Title } from "src/components/atoms/Title/Title.styles";
 import FormField from "src/components/molecules/FormField/FormField";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
-const LOGIN_URL = "/auth";
+const LOGIN_URL = import.meta.env.VITE_LOGIN_URL;
 const Login = () => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
