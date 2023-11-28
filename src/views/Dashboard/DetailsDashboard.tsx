@@ -4,29 +4,39 @@ import { Wrapper } from "../Root/Root.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const DetailsDashboard = () => {
   const userDetails = useSelector(selectUserDetails);
+  const [details, setDetails] = useState(userDetails);
+  console.log(details);
+  
+
+  useEffect(() => {
+    setDetails(userDetails);
+  }, [userDetails]);
   return (
     <Wrapper>
       <Title>Szczegóły użytwkonika</Title>
-      {userDetails ? (
+      {details ? (
         <>
           <ul>
-            <li>BMI: {userDetails.bmi}</li>
-            <li>BMR: {userDetails.bmr}</li>
-            <li>Wiek: {userDetails.age}</li>
-            <li>Waga: {userDetails.weight}</li>
-            <li>Waga: {userDetails.height}</li>
-            <li>Waga: {userDetails.chestCircumference}</li>
-            <li>Waga: {userDetails.waistCircumference}</li>
-            <li>Waga: {userDetails.hipCircumference}</li>
-            <li>Waga: {userDetails.armCircumference}</li>
-            <li>Waga: {userDetails.thighCircumference}</li>
-            <li>Waga: {userDetails.calfCircumference}</li>
+            <li>BMI: {details.bmi}</li>
+            <li>BMR: {details.bmr}</li>
+            <li>Wiek: {details.age}</li>
+            <li>Waga: {details.weight}</li>
+            <li>Waga: {details.height}</li>
+            <li>Waga: {details.chestCircumference}</li>
+            <li>Waga: {details.waistCircumference}</li>
+            <li>Waga: {details.hipCircumference}</li>
+            <li>Waga: {details.armCircumference}</li>
+            <li>Waga: {details.thighCircumference}</li>
+            <li>Waga: {details.calfCircumference}</li>
           </ul>
           <Button>
-            <Link to={'edit'} state={{...userDetails}}>Edytuj</Link>
+            <Link to={"edit"} state={{ ...details }}>
+              Edytuj
+            </Link>
           </Button>
         </>
       ) : (
