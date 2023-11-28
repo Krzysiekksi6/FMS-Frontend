@@ -3,36 +3,29 @@ import Dashboard from "../Dashboard/Dashboard";
 import MainTemplate from "src/templates/MainTemplate/MainTemplate";
 import { Route, Routes } from "react-router-dom";
 import RequireAuth from "src/components/features/auth/RequireAuth";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
-import {
-  selectCurrentUserName,
-  selectCurrentToken,
-} from "src/components/features/auth/authSlice";
-
+import DetailsDashboard from "../Dashboard/DetailsDashboard";
+import DetailsDashboardEdit from "../Dashboard/DetailsDashboardEdit";
 const ROLES = {
   USER: "User",
 };
 
-const App = () => {
+const AuthenticatedApp = () => {
   return (
     <MainTemplate>
       <Wrapper>
-        <Dashboard />
+        <Routes>
+          <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />}>
+            <Route path="" element={<Dashboard />} />
+            <Route path="/details/:id" element={<DetailsDashboard />} />
+            <Route
+              path="/details/:id/edit"
+              element={<DetailsDashboardEdit />}
+            />
+          </Route>
+          <Route path="*" element={""} />
+        </Routes>
       </Wrapper>
     </MainTemplate>
-  );
-};
-
-const AuthenticatedApp = () => {
-  const user = useSelector(selectCurrentUserName);
-  const token = useSelector(selectCurrentToken);
-  return (
-    <Routes>
-      <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />}>
-        <Route path="" element={<App />} />
-      </Route>
-      <Route path="*" element={""} />
-    </Routes>
   );
 };
 

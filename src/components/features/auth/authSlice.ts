@@ -1,13 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { AuthStateType } from "src/types/AuthState";
 
-interface AuthState {
-  userId: string | null;
-  firstname: string | null;
-  user: string | null;
-  token: string | null;
-  roles: string[] | null;
-  userDetails: string[] | null;
-}
 
 
 const authSlice = createSlice({
@@ -19,7 +12,7 @@ const authSlice = createSlice({
     token: null,
     roles: null,
     userDetails: null,
-  } as AuthState,
+  } as AuthStateType,
   reducers: {
     setCredentials: (state, action) => {
       const { id, firstname, username, accessToken, roles, userDetails } =
@@ -45,11 +38,11 @@ const authSlice = createSlice({
 export const { setCredentials, setUserDetails, logout } = authSlice.actions;
 export default authSlice.reducer;
 
-export const selectCurrentUserName = (state: { auth: AuthState }) =>
+export const selectCurrentUserName = (state: { auth: AuthStateType }) =>
   state.auth.user;
-export const selectCurrentToken = (state: { auth: AuthState }) =>
+export const selectCurrentToken = (state: { auth: AuthStateType }) =>
   state.auth.token;
-export const selectUserRoles = (state: { auth: AuthState }) => state.auth.roles;
-export const selectUserDetails = (state: { auth: AuthState }) =>
+export const selectUserRoles = (state: { auth: AuthStateType }) => state.auth.roles;
+export const selectUserDetails = (state: { auth: AuthStateType }) =>
   state.auth.userDetails;
-export const selectUserId = (state: { auth: AuthState }) => state.auth.userId;
+export const selectUserId = (state: { auth: AuthStateType }) => state.auth.userId;
