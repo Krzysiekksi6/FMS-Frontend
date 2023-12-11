@@ -13,16 +13,14 @@ const Dashboard = () => {
       <div>
         {userDetails ? (
           <>
-            <p>BMI</p>
-
-            <p>BMR</p>
-            <Link to={`/auth/details/${userId}`}>Dodaj szczegóły</Link>
-
+            <p>BMI: {userDetails.bmi}</p>
+            <p>BMR: {userDetails.bmr}</p>
+            <Link to={`/auth/details/${userId}/edit`}>Edytuj swoje dane</Link>
           </>
         ) : (
           <>
             <p>Brak danych o użytkowniku</p>
-            <Link to={`/auth/details/${userId}`}>Dodaj szczegóły</Link>
+            <Link to={`/auth/details`}>Dodaj szczegóły</Link>
           </>
         )}
       </div>

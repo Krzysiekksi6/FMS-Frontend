@@ -6,6 +6,6 @@ export type AuthStateType = {
   user: string | null;
   token: string | null;
   roles: string[] | null;
-  userDetails: UserDetailsType | null
+  userDetails: UserDetailsType | null;
+  inventoryId: number | null;
 };
-

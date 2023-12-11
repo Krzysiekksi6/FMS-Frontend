@@ -18,7 +18,7 @@ const Layout = () => {
       <Navbar_Wrapper>
         <Logo_Wrapper>
           <h1>
-            Foodie <br /> Management System
+            Foody <br /> App
           </h1>
         </Logo_Wrapper>
         <Actions_Wrapper>

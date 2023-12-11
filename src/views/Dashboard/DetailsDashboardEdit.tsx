@@ -39,57 +39,57 @@ const DetailsDashboardEdit = () => {
       <Button type="submit">Potwierdź</Button>
       <FormField
         label="Wiek"
-        defaultValue={userData.age}
+        // defaultValue={userData.age}
         type="number"
         {...register("age", { required: true })}
       />
       {errors.lastname && <span>Wiek nie może być pusty</span>}
       <FormField
         label="Waga"
-        defaultValue={userData.weight}
+        // defaultValue={userData.weight}
         type="number"
         {...register("weight", { required: true })}
       />
       {errors.lastname && <span>Wiek nie może być pusty</span>}
       <FormField
         label="Wzrost"
-        defaultValue={userData.height}
+        // defaultValue={userData.height}
         type="number"
         {...register("height", { required: true })}
       />
       <FormField
         label="Obwód klatki"
-        defaultValue={userData.chestCircumference}
+        // defaultValue={userData.chestCircumference}
         type="number"
         {...register("chestCircumference", { required: true })}
       />
       <FormField
         label="Obwód tali"
-        defaultValue={userData.waistCircumference}
+        // defaultValue={userData.waistCircumference}
         type="number"
         {...register("waistCircumference", { required: true })}
       />
       <FormField
         label="Obwód bioder"
-        defaultValue={userData.hipCircumference}
+        // defaultValue={userData.hipCircumference}
         type="number"
         {...register("hipCircumference", { required: true })}
       />
       <FormField
         label="Długość ramion"
-        defaultValue={userData.armCircumference}
+        // defaultValue={userData.armCircumference}
         type="number"
         {...register("armCircumference", { required: true })}
       />
       <FormField
         label="Obwód uda"
-        defaultValue={userData.thighCircumference}
+        // defaultValue={userData.thighCircumference}
         type="number"
         {...register("thighCircumference", { required: true })}
       />
       <FormField
         label="Obwód łydki"
-        defaultValue={userData.calfCircumference}
+        // defaultValue={userData.calfCircumference}
         type="number"
         {...register("calfCircumference", { required: true })}
       />

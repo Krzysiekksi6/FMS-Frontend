@@ -1,4 +1,5 @@
 import { Wrapper, Logo, StyledLink } from "./Navigation.styles";
+import { Link } from "react-router-dom";
 const Navigation = () => {
   return (
     <Wrapper>
@@ -9,11 +10,16 @@ const Navigation = () => {
           App
         </h1>
       </Logo>
-      <StyledLink href="/">Strona główna</StyledLink>
-      <StyledLink href="/add-user">Spiżarnia</StyledLink>
-      <StyledLink href="/add-user">Dieta</StyledLink>
-      <StyledLink href="/">Ustawienia</StyledLink>
-      <StyledLink href="/">Wyloguj</StyledLink>
+      <StyledLink>{<Link to={"/auth"}>Strona główna</Link>}</StyledLink>
+      <StyledLink>{<Link to={"/auth/inventory"}>Spiżarnia</Link>}</StyledLink>
+      <StyledLink>
+        {<Link to={"/auth/createDiet"}>Stwórz dietę</Link>}
+      </StyledLink>
+      <StyledLink>
+        {<Link to={"/auth/products"}>Katalog produktów</Link>}
+      </StyledLink>
+      <StyledLink>{<Link to={""}>Ustawienia</Link>}</StyledLink>
+      <StyledLink>{<Link to={""}>Wyloguj</Link>}</StyledLink>
     </Wrapper>
   );
 };

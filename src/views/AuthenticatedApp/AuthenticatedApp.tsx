@@ -5,6 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import RequireAuth from "src/components/features/auth/RequireAuth";
 import DetailsDashboard from "../Dashboard/DetailsDashboard";
 import DetailsDashboardEdit from "../Dashboard/DetailsDashboardEdit";
+import Inventory from "../Inventory/Inventory";
+import Products from "../Products/Products";
 const ROLES = {
   USER: "User",
 };
@@ -15,8 +17,10 @@ const AuthenticatedApp = () => {
       <Wrapper>
         <Routes>
           <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />}>
-            <Route path="" element={<Dashboard />} />
-            <Route path="/details/:id" element={<DetailsDashboard />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/details" element={<DetailsDashboard />} />
+            <Route path="/products" element={<Products />} />
             <Route
               path="/details/:id/edit"
               element={<DetailsDashboardEdit />}

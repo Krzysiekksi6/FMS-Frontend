@@ -21,11 +21,12 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     const { username, password } = data;
     try {
       const userData = await login({ username, password }).unwrap();
       dispatch(setCredentials({ ...userData, username }));
+      console.log(userData)
       navigate("/auth");
     } catch (error) {
       if (!error?.response) {

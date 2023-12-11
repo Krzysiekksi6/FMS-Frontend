@@ -8,7 +8,7 @@ import AuthenticatedApp from "../AuthenticatedApp/AuthenticatedApp";
 import { store } from "src/store/store";
 import { Provider } from "react-redux";
 const Root = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <Router>
