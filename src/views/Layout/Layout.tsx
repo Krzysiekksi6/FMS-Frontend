@@ -1,48 +1,58 @@
 import { Link } from "react-router-dom";
 import {
-  Actions_Wrapper,
-  Header_Wrapper,
-  Login_Button,
-  Register_Button,
-  Logo_Wrapper,
-  Navbar_Wrapper,
+  ActionsWrapper,
+  HeaderWrapper,
+  LoginButton,
+  RegisterButton,
+  LogoWrapper,
+  NavbarWrapper,
   Title,
   Wrapper,
   ImageWrapper,
+  RecipeWrapper,
+  SectionTitle,
 } from "./Layout.styles";
 import Image from "src/assets/img/about-background-image.png";
+import RecipeList from "./Recipes/RecipeList";
 
 const Layout = () => {
   return (
-    <Wrapper>
-      <Navbar_Wrapper>
-        <Logo_Wrapper>
-          <h1>
-            Foody <br /> App
-          </h1>
-        </Logo_Wrapper>
-        <Actions_Wrapper>
-          <Login_Button>
-            <Link to={"login"}>Logowanie</Link>
-          </Login_Button>
-        </Actions_Wrapper>
-      </Navbar_Wrapper>
-      <Header_Wrapper>
-        <div className="hello">
-          <Title>
-            Cześć, <br></br>witaj w Foodie
-          </Title>
-          <Register_Button>
-            <Link to={"register"}>Dołącz do nas</Link>
-          </Register_Button>
-        </div>
-        <div className="hi">
-          <ImageWrapper>
-            <img src={Image} alt="" />
-          </ImageWrapper>
-        </div>
-      </Header_Wrapper>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <NavbarWrapper>
+          <LogoWrapper>
+            <h1>Foody App</h1>
+          </LogoWrapper>
+          <ActionsWrapper>
+            <LoginButton>
+              <Link to={"login"}>Przepisy kulinarne</Link>
+            </LoginButton>
+            <LoginButton>
+              <Link to={"login"}>Logowanie</Link>
+            </LoginButton>
+          </ActionsWrapper>
+        </NavbarWrapper>
+        <HeaderWrapper>
+          <div className="hello">
+            <Title>
+              Cześć, <br></br>witaj w Foodie
+            </Title>
+            <RegisterButton>
+              <Link to={"register"}>Dołącz do nas</Link>
+            </RegisterButton>
+          </div>
+          <div className="hi">
+            <ImageWrapper>
+              <img src={Image} alt="" />
+            </ImageWrapper>
+          </div>
+        </HeaderWrapper>
+      </Wrapper>
+      <RecipeWrapper>
+        <SectionTitle>Przepisy kulinarne</SectionTitle>
+        <RecipeList />
+      </RecipeWrapper>
+    </>
   );
 };
 

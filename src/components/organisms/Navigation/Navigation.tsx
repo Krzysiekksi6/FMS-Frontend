@@ -12,14 +12,11 @@ const Navigation = () => {
       </Logo>
       <StyledLink>{<Link to={"/auth"}>Strona główna</Link>}</StyledLink>
       <StyledLink>{<Link to={"/auth/inventory"}>Spiżarnia</Link>}</StyledLink>
-      <StyledLink>
-        {<Link to={"/auth/createDiet"}>Stwórz dietę</Link>}
-      </StyledLink>
-      <StyledLink>
-        {<Link to={"/auth/products"}>Katalog produktów</Link>}
-      </StyledLink>
-      <StyledLink>{<Link to={""}>Ustawienia</Link>}</StyledLink>
-      <StyledLink>{<Link to={""}>Wyloguj</Link>}</StyledLink>
+      <StyledLink>{<Link to={'/auth/createDiet'}>Stwórz dietę</Link>}</StyledLink>
+      <StyledLink>{<Link to={'/auth/products'}>Katalog produktów</Link>}</StyledLink>
+      <StyledLink>{<Link to={'/auth/shoppingList'}>Lista zakupów</Link>}</StyledLink>
+      <StyledLink>{<Link to={''}>Ustawienia</Link>}</StyledLink>
+      <StyledLink>{<Link to={'/'}>Wyloguj</Link>}</StyledLink>
     </Wrapper>
   );
 };

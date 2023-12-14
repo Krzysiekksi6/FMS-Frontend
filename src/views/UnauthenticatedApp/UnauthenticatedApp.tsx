@@ -9,6 +9,7 @@ const UnauthenticatedApp = () => {
       <Route path="/" element={<Layout />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="recipe:id" element={<Register />} />
       <Route path="*" element={""} />
     </Routes>
   );

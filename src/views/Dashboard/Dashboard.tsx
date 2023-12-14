@@ -5,12 +5,14 @@ import {
   selectUserId,
 } from "src/components/features/auth/authSlice";
 
+import { Wrapper } from "../Root/Root.styles";
+import MainTemplate from "src/templates/MainTemplate/MainTemplate";
 const Dashboard = () => {
   const userDetails = useSelector(selectUserDetails);
   const userId = useSelector(selectUserId);
   return (
-    <div>
-      <div>
+    <MainTemplate>
+      <Wrapper>
         {userDetails ? (
           <>
             <p>BMI: {userDetails.bmi}</p>
@@ -23,8 +25,8 @@ const Dashboard = () => {
             <Link to={`/auth/details`}>Dodaj szczegóły</Link>
           </>
         )}
-      </div>
-    </div>
+      </Wrapper>
+    </MainTemplate>
   );
 };
 

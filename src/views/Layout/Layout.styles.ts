@@ -12,15 +12,19 @@ export const Wrapper = styled.main`
   );
 `;
 
-export const Navbar_Wrapper = styled.nav`
+export const NavbarWrapper = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
 `;
 
-export const Logo_Wrapper = styled.div``;
-export const Actions_Wrapper = styled.div``;
+export const LogoWrapper = styled.div``;
+export const ActionsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 export const Title = styled.h1`
   font-size: 3.6rem;
@@ -40,7 +44,14 @@ export const Title = styled.h1`
   }
 `;
 
-export const Register_Button = styled.button`
+export const SectionTitle = styled.h2`
+  text-align: center;
+  padding-top: 1.5rem;
+  font-size: 3.6rem;
+  color: ${({ theme }) => theme.colors.darkGrey};
+`;
+
+export const RegisterButton = styled.button`
   background-color: #c0c7d6;
   padding: 1rem 2rem;
   border-radius: 12px;
@@ -52,11 +63,12 @@ export const Register_Button = styled.button`
   }
 `;
 
-export const Login_Button = styled.button`
+export const LoginButton = styled.button`
   background-color: #f7f8fa;
   padding: 1rem 2rem;
   border-radius: 12px;
   border: none;
+  margin: 0.5rem;
   a {
     text-decoration: none;
     color: black;
@@ -64,7 +76,7 @@ export const Login_Button = styled.button`
   }
 `;
 
-export const Header_Wrapper = styled.header`
+export const HeaderWrapper = styled.header`
   padding: 4rem;
   display: flex;
   justify-content: space-between;
@@ -79,4 +91,8 @@ export const ImageWrapper = styled.div`
     display: block;
     width: 55%;
   }
+`;
+
+export const RecipeWrapper = styled.section`
+  background-color: ${({ theme }) => theme.colors.lightPurple};
 `;
