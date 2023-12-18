@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const AverageBMI = styled.div`
+export const AverageBMR = styled.div`
   width: 150px;
   height: 150px;
   border-radius: 150px;

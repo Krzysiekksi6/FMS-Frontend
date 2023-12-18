@@ -1,4 +1,3 @@
-import { AverageBMI } from "src/components/atoms/AverageBMI/AverageBMI.styles";
 import { NewSectionHeader, Wrapper } from "./NewsSection.style";
 import { ArticleWrapper } from "./NewsSection.style";
 import { TitleWrapper } from "./NewsSection.style";
@@ -24,6 +23,7 @@ const NewsSection = () => {
           {/* <p>{content}</p> */}
           {image ? <img src="" alt="" /> : null}
         </ContentWrapper>
+        {/* @ts-expect-error */}
         <Button isBig>Podgląd</Button>
       </ArticleWrapper>
 
