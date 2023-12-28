@@ -14,6 +14,7 @@ import MainTemplate from "src/templates/MainTemplate/MainTemplate";
 import { AverageBMI } from "src/components/atoms/AverageBMI/AverageBMI.styles";
 import { ArticleWrapper } from "src/templates/NewsSection/NewsSection.style";
 import { AverageBMR } from "src/components/atoms/AverageBMR/AverageBMR.styles";
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   const userDetails = useSelector(selectUserDetails);
   const userId = useSelector(selectUserId);
@@ -41,12 +42,12 @@ const Dashboard = () => {
         ) : (
           <>
             <UserDetailSection>
-              <NoDataText>Brak danych o użytkowniku</NoDataText>
+              <p>Brak danych o użytkowniku</p>
             </UserDetailSection>
             <UserDetailSection>
-              <AddDetailsLink to={`/auth/details`}>
+              <Link to={`/auth/details`}>
                 Dodaj szczegóły
-              </AddDetailsLink>
+              </Link>
             </UserDetailSection>
           </>
         )}

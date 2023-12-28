@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectInventoryId } from "src/components/features/auth/authSlice";
 import axios from "src/api/axios";
+import { Units } from "src/enum/Units";
 import {
   FormItemWrapper,
-  ProductWrapper,
   QuantityWrapper,
-  SubmitWrapper,
 } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
 import { Label } from "src/components/atoms/Label/Label.styles";
@@ -22,6 +21,7 @@ const AddItem = ({ onItemAdded }) => {
     purchaseDate: "",
     expiryDate: "",
     quantity: 0,
+    unit: "",
     newProduct: {
       name: "",
       calories: 0,
@@ -59,13 +59,20 @@ const AddItem = ({ onItemAdded }) => {
     });
   };
 
-  const handleNewProductChange = (e) => {
+  // const handleNewProductChange = (e) => {
+  //   setFormData({
+  //     ...formData,
+  //     newProduct: {
+  //       ...formData.newProduct,
+  //       [e.target.name]: e.target.value,
+  //     },
+  //   });
+  // };
+
+  const handleRadioChange = (e) => {
     setFormData({
       ...formData,
-      newProduct: {
-        ...formData.newProduct,
-        [e.target.name]: e.target.value,
-      },
+      unit: e.target.value,
     });
   };
 
@@ -96,11 +103,12 @@ const AddItem = ({ onItemAdded }) => {
         onItemAdded();
       }
       setFormData({
-        inventoryId: 1,
+        inventoryId: inventoryId,
         productId: "",
         purchaseDate: "",
         expiryDate: "",
         quantity: 0,
+        unit: "",
         newProduct: {
           name: "",
           calories: 0,
@@ -111,13 +119,14 @@ const AddItem = ({ onItemAdded }) => {
         },
       });
     } catch (error) {
+      console.log(formData);
+      
       console.error("Błąd podczas dodawania itema do inventory", error);
     }
   };
   return (
     <FormItemWrapper onSubmit={handleSubmit}>
       <Label>Produkt:</Label>
-
       <Select
         name="productId"
         value={formData.productId}
@@ -152,15 +161,50 @@ const AddItem = ({ onItemAdded }) => {
         onChange={handleInputChange}
       />
       <QuantityWrapper>
-        <Input type="radio" id="unit1" name="age" value="30" />
+        <Input
+          type="radio"
+          id="unit1"
+          name="unit"
+          value={Units.PIECE}
+          checked={formData.unit === Units.PIECE}
+          onChange={handleRadioChange}
+        />
         <Label>sztuka</Label>
-        <Input type="radio" id="unit2" name="age" value="30" />
+        <Input
+          type="radio"
+          id="unit2"
+          name="unit"
+          value={Units.KILOGRAMS}
+          checked={formData.unit === Units.KILOGRAMS}
+          onChange={handleRadioChange}
+        />
         <Label>kilogramy</Label>
-        <Input type="radio" id="unit2" name="age" value="30" />
+        <Input
+          type="radio"
+          id="unit3"
+          name="unit"
+          value={Units.GRAMS}
+          checked={formData.unit === Units.GRAMS}
+          onChange={handleRadioChange}
+        />
         <Label>gramy</Label>
-        <Input type="radio" id="unit2" name="age" value="30" />
+        <Input
+          type="radio"
+          id="unit4"
+          name="unit"
+          value={Units.SLICE}
+          checked={formData.unit === Units.SLICE}
+          onChange={handleRadioChange}
+        />
         <Label>plasterek</Label>
-        <Input type="radio" id="unit2" name="age" value="30" />
+        <Input
+          type="radio"
+          id="unit5"
+          name="unit"
+          value={Units.LITER}
+          checked={formData.unit === Units.LITER}
+          onChange={handleRadioChange}
+        />
         <Label>litr</Label>
       </QuantityWrapper>
       <Button type="submit">Dodaj produkt</Button>
