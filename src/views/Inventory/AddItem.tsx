@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { selectInventoryId } from "src/components/features/auth/authSlice";
 import axios from "src/api/axios";
-import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
+import {
+  FormItemWrapper,
+  ProductWrapper,
+  QuantityWrapper,
+  SubmitWrapper,
+} from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
-import FormField from "src/components/molecules/FormField/FormField";
+import { Label } from "src/components/atoms/Label/Label.styles";
+import { Input, Select } from "src/components/atoms/Input/Input.styles";
+import { Button } from "src/components/atoms/Button/Button.styles";
 const AddItem = ({ onItemAdded }) => {
   const [products, setProducts] = useState([]);
   const inventoryId = useSelector(selectInventoryId);
@@ -27,10 +33,9 @@ const AddItem = ({ onItemAdded }) => {
   });
 
   useEffect(() => {
-    // Pobierz produkty z bazy danych i ustaw je w stanie
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("/products"); // Zastąp "/products" właściwą ścieżką API
+        const response = await axios.get("/products");
         setProducts(response.data);
       } catch (error) {
         console.error("Błąd podczas pobierania produktów z API", error);
@@ -69,7 +74,6 @@ const AddItem = ({ onItemAdded }) => {
 
     try {
       let productData;
-
       // Sprawdź, czy użytkownik wybrał produkt z bazy danych czy podał nowy
       if (formData.productId) {
         productData = { productId: formData.productId };
@@ -86,12 +90,11 @@ const AddItem = ({ onItemAdded }) => {
       const response = await axios.post("/addItem", {
         ...formData,
         ...productData,
-      }); // Zastąp "/add-item" właściwą ścieżką API
-      console.log(response.data); // Loguj odpowiedź z backendu (możesz dostosować)
+      });
+      console.log(response.data);
       if (onItemAdded) {
         onItemAdded();
       }
-      // Zresetuj formularz po dodaniu itema
       setFormData({
         inventoryId: 1,
         productId: "",
@@ -112,75 +115,56 @@ const AddItem = ({ onItemAdded }) => {
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Produkt:
-        <select
-          name="productId"
-          value={formData.productId}
-          onChange={handleProductSelect}
-        >
-          <option value="">Wybierz produkt</option>
-          {products.map((product) => (
-            <option key={product.id} value={product.id}>
-              {product.name}
-            </option>
-          ))}
-        </select>
-      </label>
-      <div></div>
-      <br></br>
-      <label>
-        Data zakupu:
-        <input
-          type="date"
-          name="purchaseDate"
-          value={formData.purchaseDate}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <label>
-        Data ważności:
-        <input
-          type="date"
-          name="expiryDate"
-          value={formData.expiryDate}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
-      <label>
-        Ilość:
-        <input
-          type="number"
-          name="quantity"
-          value={formData.quantity}
-          onChange={handleInputChange}
-        />
-      </label>
-      <br />
-      <br />
+    <FormItemWrapper onSubmit={handleSubmit}>
+      <Label>Produkt:</Label>
 
-      <input type="radio" id="unit1" name="age" value="30" />
-      <label>sztuka</label>
-
-      <input type="radio" id="unit2" name="age" value="30" />
-      <label>kilogramy</label>
-
-      <input type="radio" id="unit2" name="age" value="30" />
-      <label>gramy</label>
-
-      <input type="radio" id="unit2" name="age" value="30" />
-      <label>plasterek</label>
-      <input type="radio" id="unit2" name="age" value="30" />
-      <label>litr</label>
-      <br />
-      <br />
-      <button type="submit">Dodaj produkt</button>
-    </form>
+      <Select
+        name="productId"
+        value={formData.productId}
+        onChange={handleProductSelect}
+      >
+        <option value="">Wybierz produkt</option>
+        {products.map((product) => (
+          <option key={product.id} value={product.id}>
+            {product.name}
+          </option>
+        ))}
+      </Select>
+      <Label>Data zakupu:</Label>
+      <Input
+        type="date"
+        name="purchaseDate"
+        value={formData.purchaseDate}
+        onChange={handleInputChange}
+      />
+      <Label>Data ważności:</Label>
+      <Input
+        type="date"
+        name="expiryDate"
+        value={formData.expiryDate}
+        onChange={handleInputChange}
+      />
+      <Label>Ilość:</Label>
+      <Input
+        type="number"
+        name="quantity"
+        value={formData.quantity}
+        onChange={handleInputChange}
+      />
+      <QuantityWrapper>
+        <Input type="radio" id="unit1" name="age" value="30" />
+        <Label>sztuka</Label>
+        <Input type="radio" id="unit2" name="age" value="30" />
+        <Label>kilogramy</Label>
+        <Input type="radio" id="unit2" name="age" value="30" />
+        <Label>gramy</Label>
+        <Input type="radio" id="unit2" name="age" value="30" />
+        <Label>plasterek</Label>
+        <Input type="radio" id="unit2" name="age" value="30" />
+        <Label>litr</Label>
+      </QuantityWrapper>
+      <Button type="submit">Dodaj produkt</Button>
+    </FormItemWrapper>
   );
 };
 
