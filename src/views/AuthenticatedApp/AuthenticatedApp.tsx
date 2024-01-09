@@ -6,6 +6,8 @@ import DetailsDashboardEdit from "../Dashboard/DetailsDashboardEdit";
 import Inventory from "../Inventory/Inventory";
 import Products from "../Products/Products";
 import ShoppingList from "../Dashboard/ShoppingList/ShoppingList";
+import CreateDiet from "../DietCreator/CreateDiet";
+import DietDetails from "../DietCreator/DietDetails";
 const ROLES = {
   USER: "User",
 };
@@ -16,9 +18,11 @@ const AuthenticatedApp = () => {
       <Route element={<RequireAuth allowedRoles={[ROLES.USER]} />}>
         <Route path="/" element={<Dashboard />} />
 
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/createDiet" element={<CreateDiet />} />
+        <Route path="/createDiet/dietDetails/:id" element={<DietDetails />} />
         <Route path="/shoppingList" element={<ShoppingList />} />
         <Route path="/details" element={<DetailsDashboard />} />
-        <Route path="/inventory" element={<Inventory />} />
         <Route path="/products" element={<Products />} />
         <Route path="/details/:id/edit" element={<DetailsDashboardEdit />} />
       </Route>

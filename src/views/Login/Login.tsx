@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,10 +11,13 @@ import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
 import { ButtonWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
+import Modal from "src/components/atoms/Modal/Modal";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const {
     register,
@@ -21,14 +25,20 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const closeModal = () => {
+    setShowModal(false);
+    setModalMessage("");
+  };
+
   const onSubmit = async (data: any) => {
     const { username, password } = data;
     try {
       const userData = await login({ username, password }).unwrap();
       dispatch(setCredentials({ ...userData, username }));
-      console.log(userData)
+      console.log(userData);
       navigate("/auth");
     } catch (error) {
+      setModalMessage("Błędne dane logowania, wprowadź poprawne dane");
       if (!error?.response) {
         const errMessage = "No server response";
         console.log(errMessage);
@@ -39,6 +49,7 @@ const Login = () => {
       } else {
         console.log("Log failed");
       }
+      setShowModal(true);
     }
   };
 
@@ -66,6 +77,7 @@ const Login = () => {
         </Button>
         <Button type="submit">Zaloguj się</Button>
       </ButtonWrapper>
+      {showModal && <Modal message={modalMessage} onClose={closeModal} />}
     </FormWrapper>
   );
 };

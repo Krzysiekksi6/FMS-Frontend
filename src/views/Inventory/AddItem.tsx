@@ -7,7 +7,6 @@ import {
   FormItemWrapper,
   QuantityWrapper,
 } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
-import { Title } from "src/components/atoms/Title/Title.styles";
 import { Label } from "src/components/atoms/Label/Label.styles";
 import { Input, Select } from "src/components/atoms/Input/Input.styles";
 import { Button } from "src/components/atoms/Button/Button.styles";
@@ -16,8 +15,8 @@ const AddItem = ({ onItemAdded }) => {
   const inventoryId = useSelector(selectInventoryId);
 
   const [formData, setFormData] = useState({
-    inventoryId: inventoryId, // Identyfikator inventory, możesz dostosować
-    productId: "", // Identyfikator produktu, zaczynamy od pustego stringa
+    inventoryId: inventoryId,
+    productId: "",
     purchaseDate: "",
     expiryDate: "",
     quantity: 0,
@@ -59,16 +58,6 @@ const AddItem = ({ onItemAdded }) => {
     });
   };
 
-  // const handleNewProductChange = (e) => {
-  //   setFormData({
-  //     ...formData,
-  //     newProduct: {
-  //       ...formData.newProduct,
-  //       [e.target.name]: e.target.value,
-  //     },
-  //   });
-  // };
-
   const handleRadioChange = (e) => {
     setFormData({
       ...formData,
@@ -81,11 +70,10 @@ const AddItem = ({ onItemAdded }) => {
 
     try {
       let productData;
-      // Sprawdź, czy użytkownik wybrał produkt z bazy danych czy podał nowy
+
       if (formData.productId) {
         productData = { productId: formData.productId };
       } else {
-        // Jeśli użytkownik dodaje nowy produkt, stwórz dane nowego produktu
         productData = {
           newProduct: {
             ...formData.newProduct,
@@ -93,7 +81,6 @@ const AddItem = ({ onItemAdded }) => {
         };
       }
 
-      // Wywołaj żądanie do backendu w celu dodania nowego itema
       const response = await axios.post("/addItem", {
         ...formData,
         ...productData,
@@ -120,7 +107,7 @@ const AddItem = ({ onItemAdded }) => {
       });
     } catch (error) {
       console.log(formData);
-      
+
       console.error("Błąd podczas dodawania itema do inventory", error);
     }
   };
@@ -170,15 +157,15 @@ const AddItem = ({ onItemAdded }) => {
           onChange={handleRadioChange}
         />
         <Label>sztuka</Label>
-        <Input
+        {/* <Input
           type="radio"
           id="unit2"
           name="unit"
           value={Units.KILOGRAMS}
           checked={formData.unit === Units.KILOGRAMS}
           onChange={handleRadioChange}
-        />
-        <Label>kilogramy</Label>
+        /> */}
+        {/* <Label>kilogramy</Label> */}
         <Input
           type="radio"
           id="unit3"
@@ -188,7 +175,7 @@ const AddItem = ({ onItemAdded }) => {
           onChange={handleRadioChange}
         />
         <Label>gramy</Label>
-        <Input
+        {/* <Input
           type="radio"
           id="unit4"
           name="unit"
@@ -197,6 +184,7 @@ const AddItem = ({ onItemAdded }) => {
           onChange={handleRadioChange}
         />
         <Label>plasterek</Label>
+        
         <Input
           type="radio"
           id="unit5"
@@ -205,7 +193,7 @@ const AddItem = ({ onItemAdded }) => {
           checked={formData.unit === Units.LITER}
           onChange={handleRadioChange}
         />
-        <Label>litr</Label>
+        <Label>litr</Label> */}
       </QuantityWrapper>
       <Button type="submit">Dodaj produkt</Button>
     </FormItemWrapper>

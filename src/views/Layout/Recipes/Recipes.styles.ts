@@ -4,10 +4,10 @@ import styled from "styled-components";
 export const RecipesListWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: .1rem;
   li {
     flex-basis: calc(
-      33.3333% - 1rem
+      33.3333% - 0.5rem
     ); /* Ustaw szerokość elementu na 1/3 z odstępem 1rem */
   }
 `;
