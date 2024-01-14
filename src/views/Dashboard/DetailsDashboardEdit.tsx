@@ -28,6 +28,7 @@ const DetailsDashboardEdit = () => {
   const onSubmitHandler = async (data: UserDetailsType) => {
     try {
       const result = await postUserDetails({ id: userId, userDetails: data });
+      console.log("RESULT", result);
       dispatch(setUserDetails(result.data));
     } catch (error) {
       console.log(error);

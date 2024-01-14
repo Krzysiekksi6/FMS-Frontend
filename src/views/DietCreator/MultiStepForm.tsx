@@ -6,16 +6,19 @@ import StepThree from "./Steps/StepThree";
 import { useMultiStepForm } from "src/context/MultiStepFormProvider";
 
 const MultiStepForm = () => {
-  const { currentStep, setCurrentStep } = useMultiStepForm();
+  const { currentStep, setCurrentStep, weeklyIds, setWeeklyIds, setDietId } =
+    useMultiStepForm();
   const [dietData, setDietData] = useState(null);
   const [weeklyDietData, setWeeklyDietData] = useState(null);
-  const [weeklyIds, setWeeklyDietIds] = useState([]);
   const [caloriesPerDay, setCaloriesPerDay] = useState(0);
 
   const handleNext = async (data) => {
     try {
       const response = await axios.post("/diet", data);
       setDietData(response.data);
+      console.log("RESPONSE DATA OF DIET", response.data);
+
+      setDietId(response.data.createdDiet.id);
 
       if (response.data.createdDiet.caloriesPerDay) {
         setCaloriesPerDay(response.data.createdDiet.caloriesPerDay);
@@ -25,7 +28,7 @@ const MultiStepForm = () => {
         const weeklyDietIds = response.data.savedWeeklyDiet.map(
           (week) => week.id
         );
-        setWeeklyDietIds(weeklyDietIds);
+        setWeeklyIds(weeklyDietIds);
       }
 
       setCurrentStep((prevState) => prevState + 1);
@@ -38,7 +41,6 @@ const MultiStepForm = () => {
   const handleFinalSubmit = (finalData) => {
     setWeeklyDietData(finalData);
     setCurrentStep((prevState) => prevState + 1);
-    console.log("HERE", currentStep);
   };
 
   return (
@@ -51,7 +53,7 @@ const MultiStepForm = () => {
           onNext={handleFinalSubmit}
         />
       )}
-      {currentStep > 2 && <StepThree data={weeklyDietData} />}
+      {currentStep > 2 && <StepThree />}
     </div>
   );
 };

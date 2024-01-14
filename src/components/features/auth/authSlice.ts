@@ -11,6 +11,7 @@ const authSlice = createSlice({
     roles: null,
     userDetails: null,
     inventoryId: null,
+    dietId: null,
   } as AuthStateType,
   reducers: {
     setCredentials: (state, action) => {
@@ -34,6 +35,9 @@ const authSlice = createSlice({
     setUserDetails: (state, action) => {
       state.userDetails = action.payload;
     },
+    setUserDietId: (state, action) => {
+      state.dietId = action.payload;
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -42,7 +46,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, setUserDetails, logout } = authSlice.actions;
+export const { setCredentials, setUserDetails, logout, setUserDietId } = authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUserName = (state: { auth: AuthStateType }) =>
@@ -57,3 +61,6 @@ export const selectUserId = (state: { auth: AuthStateType }) =>
   state.auth.userId;
 export const selectInventoryId = (state: { auth: AuthStateType }) =>
   state.auth.inventoryId;
+
+export const selectUserDietId = (state: { auth: AuthStateType }) =>
+  state.auth.dietId;

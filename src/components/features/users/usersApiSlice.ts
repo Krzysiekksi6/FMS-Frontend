@@ -1,5 +1,6 @@
 import { apiSlice } from "src/api/apiSlice";
 import { HTTP_METHODS } from "src/enum/httpMethods";
+
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
@@ -13,7 +14,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         body: userDetails,
       }),
     }),
+    updateDietId: builder.mutation({
+      query: ({ id, dietId }) => ({
+        url: `/users/${id}/updateDietId`,
+        method: HTTP_METHODS.PUT,
+        body: { dietId: dietId }, // Przekazujemy dietId jako część ciała zapytania
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, usePostUserDetailsMutation  } = usersApiSlice;
+export const {
+  useGetUsersQuery,
+  usePostUserDetailsMutation,
+  useUpdateDietIdMutation, // Dodajemy nowe zapytanie do hooka
+} = usersApiSlice;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import MainTemplate from "src/templates/MainTemplate/MainTemplate";
 
 import { Wrapper } from "src/views/Root/Root.styles";
@@ -14,38 +14,24 @@ import { Button } from "src/components/atoms/Button/Button.styles";
 import {
   MdLocalGroceryStore, // Ikona koszyka
 } from "react-icons/md";
+import axios from "src/api/axios";
 
 const ShoppingList = () => {
-  const shoppingListData = [
-    {
-      id: 1,
-      category: "Warzywa",
-      items: [
-        {
-          name: "Marchewka",
-          quantity: "1 szt.",
-          icon: "<MdLocalGroceryStore />",
-        },
-        {
-          name: "Pomidor",
-          quantity: "5 szt.",
-          icon: "<MdLocalGroceryStore />",
-        },
-        { name: "Ogórek", quantity: "3 szt.", icon: "<MdLocalGroceryStore />" },
-      ],
-    },
-    {
-      id: 2,
-      category: "Nabiał",
-      items: [
-        { name: "Mleko", quantity: "1 l", icon: "<MdLocalGroceryStore />" },
-        { name: "Ser", quantity: "200 g", icon: "<MdLocalGroceryStore />" },
-        { name: "Jajka", quantity: "10 szt.", icon: "<MdLocalGroceryStore />" },
-      ],
-    },
-    // Dodaj więcej kategorii i produktów według potrzeb
-  ];
+  const dietId = 1;
+  const [shoppingList, setShoopingList] = useState([]);
 
+  useEffect(() => {
+    const fetchShoopingList = async () => {
+      try {
+        const response = await axios.get(`/generateShoppingList/${dietId}`);
+        setShoopingList(response.data);
+      } catch (error) {
+        console.error("Błąd podczas pobierania listy zakupów z API", error);
+      }
+    };
+
+    fetchShoopingList();
+  }, []);
   return (
     <MainTemplate>
       <Wrapper>
@@ -59,22 +45,16 @@ const ShoppingList = () => {
             </h1>
           </SectionWrapper>
 
-          {shoppingListData.map((category) => (
-            <li key={category.id}>
-              <TitleWrapper>
-                <h3>{category.category}</h3>
-              </TitleWrapper>
-              <ContentWrapper>
-                <ul>
-                  {category.items.map((item, index) => (
-                    <li key={index}>
-                      {item.name} - {item.quantity}
-                    </li>
-                  ))}
-                </ul>
-              </ContentWrapper>
-            </li>
-          ))}
+          <ContentWrapper>
+            <ul>
+              {shoppingList.map((item, index) => (
+                <li key={index}>
+                  {item.productName} - {item.quantity}
+                </li>
+              ))}
+            </ul>
+          </ContentWrapper>
+
           <ButtonWrapper>
             <Button isBig>Pobierz PDF</Button>
           </ButtonWrapper>
