@@ -42,6 +42,7 @@ const Login = () => {
       if (!error?.response) {
         const errMessage = "No server response";
         console.log(errMessage);
+        console.log(error);
       } else if (error.response?.status === 400) {
         console.log("Bad Request");
       } else if (error.response?.status === 401) {

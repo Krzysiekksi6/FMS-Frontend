@@ -8,5 +8,5 @@ export type AuthStateType = {
   roles: string[] | null;
   userDetails: UserDetailsType | null;
   inventoryId: number | null;
-  dietId: number;
+  dietId: number | null;
 };

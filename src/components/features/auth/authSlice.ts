@@ -31,6 +31,10 @@ const authSlice = createSlice({
       state.roles = roles;
       state.userDetails = userDetails;
       state.inventoryId = inventoryId;
+      state.dietId =
+        userDetails && userDetails.currentDiet
+          ? userDetails.currentDiet.id
+          : "";
     },
     setUserDetails: (state, action) => {
       state.userDetails = action.payload;
@@ -46,7 +50,8 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, setUserDetails, logout, setUserDietId } = authSlice.actions;
+export const { setCredentials, setUserDetails, logout, setUserDietId } =
+  authSlice.actions;
 export default authSlice.reducer;
 
 export const selectCurrentUserName = (state: { auth: AuthStateType }) =>

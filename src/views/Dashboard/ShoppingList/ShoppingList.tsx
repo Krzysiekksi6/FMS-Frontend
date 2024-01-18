@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { PDFDownloadLink, Document, Page } from "@react-pdf/renderer";
+import ShoopingListPDF from "./ShoopingListPDF";
 import MainTemplate from "src/templates/MainTemplate/MainTemplate";
-
 import { Wrapper } from "src/views/Root/Root.styles";
 import {
   ShoppingListWrapper,
@@ -15,9 +17,10 @@ import {
   MdLocalGroceryStore, // Ikona koszyka
 } from "react-icons/md";
 import axios from "src/api/axios";
+import { selectUserDietId } from "src/components/features/auth/authSlice";
 
 const ShoppingList = () => {
-  const dietId = 1;
+  const dietId = useSelector(selectUserDietId);
   const [shoppingList, setShoopingList] = useState([]);
 
   useEffect(() => {
@@ -32,6 +35,11 @@ const ShoppingList = () => {
 
     fetchShoopingList();
   }, []);
+
+  const handlePdfDocument = () => {
+    console.log("PDF downloading...");
+    ReactPDF.render(<ShoopingListPDF />, `./example.pdf`);
+  };
   return (
     <MainTemplate>
       <Wrapper>
@@ -39,6 +47,7 @@ const ShoppingList = () => {
           <SectionWrapper>
             <h1>
               Lista zakupów{" "}
+              {console.log("DIETID: ",dietId)}
               <span>
                 <MdLocalGroceryStore />
               </span>
@@ -56,7 +65,16 @@ const ShoppingList = () => {
           </ContentWrapper>
 
           <ButtonWrapper>
-            <Button isBig>Pobierz PDF</Button>
+            <Button isBig>
+              <PDFDownloadLink
+                document={<ShoopingListPDF shoppingList={shoppingList} />}
+                fileName="lista_zakupów.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Ładowanie dokumentu..." : "Pobierz PDF"
+                }
+              </PDFDownloadLink>
+            </Button>
           </ButtonWrapper>
         </ShoppingListWrapper>
       </Wrapper>
