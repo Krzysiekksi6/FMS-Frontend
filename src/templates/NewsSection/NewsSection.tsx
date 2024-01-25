@@ -6,15 +6,13 @@ import { NewSectionHeader, Wrapper } from "./NewsSection.style";
 import {
   ArticleWrapper,
   NoDietWrapper,
-  TitleWrapper,
-  ContentWrapper,
 } from "./NewsSection.style";
-import { Button } from "src/components/atoms/Button/Button.styles";
 import {
   SecondTitle,
   ThirdTitle,
 } from "src/components/atoms/Title/Title.styles";
 import { MdSentimentVeryDissatisfied } from "react-icons/md";
+import { format } from "date-fns";
 
 const NewsSection = () => {
   const dietId = useSelector(selectUserDietId);
@@ -45,7 +43,7 @@ const NewsSection = () => {
               {week.dailyDiets.map((dailyDiet) => (
                 <ArticleWrapper key={dailyDiet.id}>
                   <ThirdTitle>{dailyDiet.dayOfWeek}</ThirdTitle>
-                  <p>Date: {dailyDiet.date}</p>
+                  <p>Data: {format(new Date(dailyDiet.date), "dd.MM.yyyy")}</p>
                   {dailyDiet.dailyMeals.map((meal) => (
                     <div key={meal.id}>
                       <ThirdTitle>{meal.mealType}</ThirdTitle>

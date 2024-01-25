@@ -24,11 +24,15 @@ const InventoryList = ({ onItemAdded }) => {
 
   const fetchInventoryData = async () => {
     try {
+      console.log("USER INV", userInventoryId);
+      
       // Pobierz dane o spiżarni z backendu
       const response = await axios.get(
         `/getCurrentInventory/${userInventoryId}`
       );
       setInventoryData(response.data.inventory);
+      console.log(response.data.inventory);
+      
     } catch (error) {
       console.error("Błąd podczas pobierania danych o spiżarni z API", error);
     }
@@ -79,7 +83,7 @@ const InventoryList = ({ onItemAdded }) => {
       productId,
     };
 
-    const response = await axios.put("/removeAllItem", requestBody);
+    const response = await axios.post("/removeAllItem", requestBody);
     console.log("Produkt został dodany.", response.data);
     fetchInventoryData();
   };
