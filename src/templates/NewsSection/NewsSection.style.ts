@@ -41,10 +41,17 @@ export const TitleWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   display: flex;
-
+  width: 100%;
   img {
     max-width: 200px;
     margin-left: 35px;
     object-fit: cover;
   }
+`;
+
+export const NoDietWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

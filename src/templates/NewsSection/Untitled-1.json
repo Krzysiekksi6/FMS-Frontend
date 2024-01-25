@@ -1,0 +1,104 @@
+ "weeklyDiets": [
+        {
+            "id": 50,
+            "weekName": "Tydzień 1",
+            "dailyDiets": [
+                {
+                    "id": 342,
+                    "dayOfWeek": "Środa",
+                    "date": "2024-01-03T00:00:00.000Z",
+                    "totalCalories": 2800,
+                    "totalProtein": 100,
+                    "totalCarbs": 150,
+                    "totalFat": 50,
+                    "dailyMeals": [
+                        {
+                            "id": 26,
+                            "mealType": "secondBreakfast",
+                            "dishes": [
+                                {
+                                    "id": 1,
+                                    "name": "Kanapka z serem",
+                                    "description": "Pyszna kanapka z serem zołtym i swiezym pomidorem",
+                                    "totalCalories": 0,
+                                    "totalProtein": 0,
+                                    "totalCarbs": 0,
+                                    "totalFat": 0,
+                                    "ingredients": [
+                                        {
+                                            "id": 2,
+                                            "quantity": 50,
+                                            "product": {
+                                                "id": 8,
+                                                "name": "Ser zolty",
+                                                "calories": 402,
+                                                "protein": 25,
+                                                "carbs": 1,
+                                                "fat": 33,
+                                                "shelfLifeDays": 30,
+                                                "productCategory": {
+                                                    "id": 3,
+                                                    "name": "Nabial"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": 3,
+                                            "quantity": 1,
+                                            "product": {
+                                                "id": 2,
+                                                "name": "Pomidor",
+                                                "calories": 18,
+                                                "protein": 1,
+                                                "carbs": 4,
+                                                "fat": 0,
+                                                "shelfLifeDays": 7,
+                                                "productCategory": {
+                                                    "id": 1,
+                                                    "name": "Warzywa"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": 1,
+                                            "quantity": 2,
+                                            "product": {
+                                                "id": 19,
+                                                "name": "Chleb pszenny",
+                                                "calories": 79,
+                                                "protein": 3,
+                                                "carbs": 15,
+                                                "fat": 1,
+                                                "shelfLifeDays": 5,
+                                                "productCategory": {
+                                                    "id": 7,
+                                                    "name": "Produkty zbozowe"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "id": 4,
+                                            "quantity": 150,
+                                            "product": {
+                                                "id": 18,
+                                                "name": "Herbata zielona",
+                                                "calories": 2,
+                                                "protein": 0,
+                                                "carbs": 0,
+                                                "fat": 0,
+                                                "shelfLifeDays": 365,
+                                                "productCategory": {
+                                                    "id": 6,
+                                                    "name": "Napoje"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+						]
+        }
+    ]
+}
+]

@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { differenceInDays, parseISO } from "date-fns";
 import { selectInventoryId } from "src/components/features/auth/authSlice";
 import axios from "src/api/axios";
 import {
   NewSectionHeader,
   Wrapper,
   TitleWrapper,
-  ContentWrapper,
   ArticleWrapper,
 } from "src/templates/NewsSection/NewsSection.style";
+import {
+  ProductWrapper,
+  ProductDetails,
+  ProductActions,
+  ProductName,
+  ExpiryDate,
+} from "src/components/atoms/ExpiryDate/ExpiryDate";
+import { MdAdd, MdRemove, MdDelete } from "react-icons/md";
 
 const InventoryList = ({ onItemAdded }) => {
   const [inventoryData, setInventoryData] = useState(null);
@@ -32,19 +40,48 @@ const InventoryList = ({ onItemAdded }) => {
   }, [onItemAdded]);
 
   const calculateDaysDifference = (startDate, endDate) => {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
+    const start = parseISO(startDate);
+    const end = parseISO(endDate);
 
-    // Sprawdź, czy daty są prawidłowe
-    if (isNaN(start) || isNaN(end)) {
-      return "Błąd w danych";
-    }
+    return differenceInDays(end, start);
+  };
 
-    const differenceInMilliseconds = end - start;
-    const differenceInDays = Math.floor(
-      differenceInMilliseconds / (1000 * 60 * 60 * 24)
-    );
-    return differenceInDays;
+  const removeItem = async (productId) => {
+    console.log(`Usuń produkt o ID: ${productId}`);
+    console.log(`Inv ID: ${userInventoryId}`);
+    const requestBody = {
+      inventoryId: userInventoryId,
+      productId,
+    };
+    const response = await axios.post("/removeItem", requestBody);
+    console.log("Produkt został usunięty.", response.data);
+    fetchInventoryData();
+  };
+
+  const addItem = async (productId) => {
+    console.log(`Dodaj produkt o ID: ${productId}`);
+    console.log(`Inventory ID: ${userInventoryId}`);
+    const requestBody = {
+      inventoryId: userInventoryId,
+      productId,
+    };
+
+    const response = await axios.put("/addItem", requestBody);
+    console.log("Produkt został dodany.", response.data);
+    fetchInventoryData();
+  };
+
+  const removeAllItem = async (productId) => {
+    console.log(`Dodaj produkt o ID: ${productId}`);
+    console.log(`Inventory ID: ${userInventoryId}`);
+    const requestBody = {
+      inventoryId: userInventoryId,
+      productId,
+    };
+
+    const response = await axios.put("/removeAllItem", requestBody);
+    console.log("Produkt został dodany.", response.data);
+    fetchInventoryData();
   };
 
   // Funkcja do renderowania produktów w danym ArticleWrapper
@@ -53,18 +90,32 @@ const InventoryList = ({ onItemAdded }) => {
       <TitleWrapper>
         <h3>{categoryName}</h3>
       </TitleWrapper>
-      <ContentWrapper>
-        <div>
-          {products.map((product) => (
-            <p key={product.id}>{`${product.name}: ${product.quantity} ${
-              product.unit
-            } - Pozostało ${calculateDaysDifference(
-              product.purchaseDate,
-              product.expiryDate
-            )} dni`}</p>
-          ))}
-        </div>
-      </ContentWrapper>
+      <div>
+        {products.map((product) => (
+          <ProductWrapper key={product.id}>
+            <ProductDetails>
+              <ProductName>
+                <span>{`${product.name}:`}</span>
+                {` ${product.quantity} ${product.unit}`}
+              </ProductName>
+              <ExpiryDate
+                value={product.diffrence}
+              >{`Pozostało ${product.diffrence} dni`}</ExpiryDate>
+            </ProductDetails>
+            <ProductActions>
+              <span onClick={() => addItem(product.id)}>
+                <MdAdd />
+              </span>
+              <span onClick={() => removeItem(product.id)}>
+                <MdRemove />
+              </span>
+              <span onClick={() => removeAllItem(product.id)}>
+                <MdDelete />
+              </span>
+            </ProductActions>
+          </ProductWrapper>
+        ))}
+      </div>
     </ArticleWrapper>
   );
 
@@ -83,6 +134,7 @@ const InventoryList = ({ onItemAdded }) => {
         name: item.product.name,
         quantity: item.quantity,
         unit: item.unit || "szt",
+        diffrence: calculateDaysDifference(item.purchaseDate, item.expiryDate),
       });
     });
 

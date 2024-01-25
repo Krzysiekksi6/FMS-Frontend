@@ -1,47 +1,74 @@
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "src/api/axios";
+import { selectUserDietId } from "src/components/features/auth/authSlice";
 import { NewSectionHeader, Wrapper } from "./NewsSection.style";
-import { ArticleWrapper } from "./NewsSection.style";
-import { TitleWrapper } from "./NewsSection.style";
-import { ContentWrapper } from "./NewsSection.style";
+import {
+  ArticleWrapper,
+  NoDietWrapper,
+  TitleWrapper,
+  ContentWrapper,
+} from "./NewsSection.style";
 import { Button } from "src/components/atoms/Button/Button.styles";
+import {
+  SecondTitle,
+  ThirdTitle,
+} from "src/components/atoms/Title/Title.styles";
+import { MdSentimentVeryDissatisfied } from "react-icons/md";
 
 const NewsSection = () => {
+  const dietId = useSelector(selectUserDietId);
+  const [dietData, setDietData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/getDietById/${dietId}`);
+        const data = response.data.weeklyDiets;
+        setDietData(data);
+      } catch (error) {
+        console.error("Błąd podczas pobierania diety");
+      }
+    };
+    fetchData();
+  }, []);
   const image = null;
+
   return (
     <Wrapper>
       <NewSectionHeader>Twoja dieta</NewSectionHeader>
-
-      <ArticleWrapper>
-        <TitleWrapper>
-          <h3>Dzisiaj</h3>
-          <p>Śniadanie: Jajecznica</p>
-          <p>Śniadanie II: Kanapki z szynką i Mozarellą</p>
-          <p>Obiad: Makaron z Łososiem w sosie pomidorowym</p>
-          <p>Kolacja: Kanapki z dżemem</p>
-          <p>Przekąska: Jabłko</p>
-        </TitleWrapper>
-        <ContentWrapper>
-          {/* <p>{content}</p> */}
-          {image ? <img src="" alt="" /> : null}
-        </ContentWrapper>
-        {/* @ts-expect-error */}
-        <Button isBig>Podgląd</Button>
-      </ArticleWrapper>
-
-      <ArticleWrapper>
-        <TitleWrapper>
-          <h3>Jutro</h3>
-          <p>Śniadanie</p>
-          <p>Śniadanie II</p>
-          <p>Obiad</p>
-          <p>Kolacja</p>
-          <p>Przekąska</p>
-        </TitleWrapper>
-        <ContentWrapper>
-          {/* <p>{content}</p> */}
-          {image ? <img src="" alt="" /> : null}
-        </ContentWrapper>
-        <Button isBig>Podgląd</Button>
-      </ArticleWrapper>
+      {dietId ? (
+        <>
+          {dietData.map((week) => (
+            <div key={week.id}>
+              <SecondTitle>{week.weekName}</SecondTitle>
+              {week.dailyDiets.map((dailyDiet) => (
+                <ArticleWrapper key={dailyDiet.id}>
+                  <ThirdTitle>{dailyDiet.dayOfWeek}</ThirdTitle>
+                  <p>Date: {dailyDiet.date}</p>
+                  {dailyDiet.dailyMeals.map((meal) => (
+                    <div key={meal.id}>
+                      <ThirdTitle>{meal.mealType}</ThirdTitle>
+                      {meal.dishes.map((dish) => (
+                          <small>{dish.name}</small>
+                      ))}
+                    </div>
+                  ))}
+                </ArticleWrapper>
+              ))}
+            </div>
+          ))}
+        </>
+      ) : (
+        <NoDietWrapper>
+          <SecondTitle>
+            Brak wybranej diety{" "}
+            <span>
+              <MdSentimentVeryDissatisfied size={26} />
+            </span>
+          </SecondTitle>
+        </NoDietWrapper>
+      )}
     </Wrapper>
   );
 };

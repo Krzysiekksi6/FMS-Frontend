@@ -1,31 +1,16 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import Navigation from "src/components/organisms/Navigation/Navigation";
+import SearchBar from "src/components/organisms/SearchBar/SearchBar";
+import { Wrapper } from "src/templates/MainTemplate/MainTemplate.styles";
 import axios from "src/api/axios";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/products");
-        console.log(response.data);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Błąd podczas pobierania danych z API", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+ 
   return (
-    <div>
-      <h1>Produkty</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>{product.name} -- {product.shelfLifeDays}dni</li>
-        ))}
-      </ul>
-    </div>
+    <Wrapper>
+      <Navigation />
+      <SearchBar />
+    </Wrapper>
   );
 };
 
