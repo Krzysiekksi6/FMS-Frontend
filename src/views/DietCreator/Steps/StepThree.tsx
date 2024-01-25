@@ -12,6 +12,17 @@ import {
 } from "src/components/features/auth/authSlice";
 import { usePostUserDetailsMutation } from "src/components/features/users/usersApiSlice";
 
+import { Title } from "src/components/atoms/Title/Title.styles";
+import {
+  ContentWrapper,
+  WeekTitle,
+  DietDetalilsWrapper,
+  DietDetalilsItem,
+  ParagraphDetails,
+  WeekName,
+  ActionsWrapper,
+} from "../CreateDiet.styles";
+
 const StepThree = () => {
   const dispatch = useDispatch();
   const [updateDietId, { isLoading }] = usePostUserDetailsMutation();
@@ -53,31 +64,45 @@ const StepThree = () => {
   };
 
   return (
-    <div>
-      <h1>datas</h1>
-      <div>
+    <>
+      {console.log(weeklyData)}
+      <ContentWrapper>
+        <Title>Plan diety</Title>
         {Array.isArray(weeklyData) &&
           weeklyData.map((week) => (
             <div key={week.id}>
-              <h3>{week.weekName}</h3>
-              <ul>
+              <WeekTitle>{week.weekName}</WeekTitle>
+              <DietDetalilsWrapper>
                 {week.dailyDiets.map((dailyDiet) => (
-                  <li key={dailyDiet.id}>
-                    <p>{dailyDiet.dayOfWeek}</p>
-                    <p>{dailyDiet.date}</p>
+                  <DietDetalilsItem key={dailyDiet.id}>
+                    <WeekName>{dailyDiet.dayOfWeek}</WeekName>
+                    <p>
+                      {new Date(dailyDiet.date).toLocaleDateString("pl-PL")}
+                    </p>
+                    <ParagraphDetails>
+                      Białko: {dailyDiet.totalProtein}
+                    </ParagraphDetails>
+                    <ParagraphDetails>
+                      Tłuszcze: {dailyDiet.totalFat}
+                    </ParagraphDetails>
+                    <ParagraphDetails>
+                      Węglowodany: {dailyDiet.totalCarbs}
+                    </ParagraphDetails>
                     <Link to={`dietDetails/${dailyDiet.id}`}>
-                      <button>Przejdź do szczegółów</button>
+                      <Button>Przejdź do szczegółów</Button>
                     </Link>
-                  </li>
+                  </DietDetalilsItem>
                 ))}
-              </ul>
+              </DietDetalilsWrapper>
             </div>
           ))}
-      </div>
-      <Button type="button" onClick={handleSaveDiet}>
-        Dodaj dietę
-      </Button>
-    </div>
+      </ContentWrapper>
+      <ActionsWrapper>
+        <Button isBig type="button" onClick={handleSaveDiet}>
+          Zapisz dietę
+        </Button>
+      </ActionsWrapper>
+    </>
   );
 };
 

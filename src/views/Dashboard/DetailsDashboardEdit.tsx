@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { FormWrapper } from "../UnauthenticatedApp/UnauthenticatedApp.styles";
 import { Title } from "src/components/atoms/Title/Title.styles";
 import FormField from "src/components/molecules/FormField/FormField";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "src/components/atoms/Button/Button.styles";
 import { UserDetailsType } from "src/types/UserDetails";
@@ -16,6 +16,7 @@ import {
 const DetailsDashboardEdit = () => {
   const userId = useSelector(selectUserId);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { state: userData } = useLocation();
   const [postUserDetails, { isLoading, isError }] =
     usePostUserDetailsMutation();
@@ -29,6 +30,7 @@ const DetailsDashboardEdit = () => {
     try {
       const result = await postUserDetails({ id: userId, userDetails: data });
       console.log("RESULT", result);
+      navigate(-1);
       dispatch(setUserDetails(result.data));
     } catch (error) {
       console.log(error);
