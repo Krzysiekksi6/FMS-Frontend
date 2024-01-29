@@ -7,7 +7,7 @@ const CreateDiet = () => {
     <Wrapper>
       <Navigation />
       <SearchBar />
-        <MultiStepForm />
+      <MultiStepForm />
     </Wrapper>
   );
 };
