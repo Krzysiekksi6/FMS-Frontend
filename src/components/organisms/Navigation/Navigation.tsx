@@ -29,7 +29,7 @@ const Navigation = () => {
         <StyledLink>{<Link to={"/auth/admin"}>Użytkownicy</Link>}</StyledLink>
       )}
 
-      <StyledLink>{<Link to={""}>Ustawienia</Link>}</StyledLink>
+      {/* <StyledLink>{<Link to={""}>Ustawienia</Link>}</StyledLink> */}
       <StyledLink>{<Link to={"/"}>Wyloguj</Link>}</StyledLink>
     </Wrapper>
   );

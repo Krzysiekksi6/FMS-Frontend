@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { MultiStepFormProvider } from "src/context/MultiStepFormProvider";
@@ -10,7 +9,6 @@ import { store } from "src/store/store";
 import { Provider } from "react-redux";
 
 const Root = () => {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   return (
     <Router>
